@@ -1,0 +1,14 @@
+.DS_Store
+
+*/*/*/obj
+*/*/*/bin
+*/*/*/.vs
+/.vs
+/02_.net_data_access/dominando_repository_pattern/BaltaStore
+/03_asp.net-blazor_developer/fullstack/Dima/Dima.Core/obj/Release/net10.0
+/03_asp.net-blazor_developer/fullstack/Dima/Dima.Api/obj
+*/*/*/*/obj
+*/*/*/*/bin
+*/*/*/*/.vs
+**/obj
+**/bin
