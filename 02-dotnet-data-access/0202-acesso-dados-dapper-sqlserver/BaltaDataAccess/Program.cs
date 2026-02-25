@@ -1,11 +1,11 @@
 ﻿using Microsoft.Data.SqlClient;
 
-const string connectionString = "Server=localhost;Database=balta;User ID=sa;Password=1q2w3e4r@#$;TrustServerCertificate=True";
+const string connectionString = "Server=localhost;Database=balta;User ID=sa;Password=1q2w3e4r@#$; TrustServerCertificate=True;";
 
 using   (var connection = new SqlConnection(connectionString))
 {
-    connection.Open();
     Console.WriteLine("Conectado");
+    connection.Open();
 
     using ( var command = new SqlCommand()){
         command.Connection = connection;
