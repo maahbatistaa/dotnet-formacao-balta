@@ -12,9 +12,11 @@ public class Program
 
         using (var connection = new SqlConnection(connectionString))
         {
-            UpdateCategory(connection);
-            ListCategories(connection);
             // CreateCategory(connection);
+            // UpdateCategory(connection);
+            // DeleteCategory(connection);
+            // ListCategories(connection);
+            GetCategory(connection);
         }
     }
 
@@ -26,6 +28,19 @@ public class Program
         {
             Console.WriteLine($"Id: {item.Id}, Title: {item.Title}");
         }
+    }
+
+    static void GetCategory(SqlConnection connection)
+    {
+        var category = connection
+            .QueryFirstOrDefault<Category>(
+                "SELECT TOP 1 [Id], [Title] FROM [Category] WHERE [Id]=@id",
+                new
+                {
+                    id = "af3407aa-11ae-4621-a2ef-2028b85507c4"
+                });
+        Console.WriteLine($"{category.Id} - {category.Title}");
+
     }
 
     static void CreateCategory(SqlConnection connection)
@@ -72,5 +87,16 @@ public class Program
         });
 
         Console.WriteLine($"Rows: {rows}");
+    }
+
+    static void DeleteCategory(SqlConnection connection)
+    {
+        var deleteQuery = "DELETE [Category] WHERE [Id]=@id";
+        var rows = connection.Execute(deleteQuery, new
+        {
+            id = new Guid("ea8059a2-e679-4e74-99b5-e4f0b310fe6f"),
+        });
+
+        Console.WriteLine($"{rows} registros excluídos");
     }
 }
