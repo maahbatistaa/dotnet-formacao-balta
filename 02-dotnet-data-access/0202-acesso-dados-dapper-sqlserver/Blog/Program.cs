@@ -1,6 +1,7 @@
 ﻿using Microsoft.Data.SqlClient;
 using Dapper.Contrib.Extensions;
 using Blog.Models;
+using Blog.Repositories;
 
 namespace Blog
 {
@@ -9,23 +10,26 @@ namespace Blog
 		private const string CONNECTION_STRING = "Server=localhost,1433;Database=Blog;User Id=sa;Password=1q2w3e4r@#$; trustServerCertificate=true;";
 		static void Main(string[] args)
 		{
-			ReadUsers();
+			var connection = new SqlConnection(CONNECTION_STRING);
+			connection.Open();
+
+			ReadUsers(connection);
 			//ReadUser();
 			//CreateUser();
 			//UpdateUser();
 			//DeleteUser();
+
+			connection.Close();
 		}
 
-		public static void ReadUsers()
+		public static void ReadUsers(SqlConnection connection)
 		{
-			using (var connection = new SqlConnection(CONNECTION_STRING))
-			{
-				var users = connection.GetAll<User>();
-				foreach (var user in users)
-				{
-					Console.WriteLine($"Id: {user.Id}, Name: {user.Name}, Email: {user.Email}");
-				}
-			}
+			var repository = new UserRepository(connection);
+			var users = repository.Get();
+
+			foreach (var user in users)
+				Console.WriteLine($"Id: {user.Id}, Name: {user.Name}, Email: {user.Email}");
+
 		}
 
 		private static void ReadUser()
