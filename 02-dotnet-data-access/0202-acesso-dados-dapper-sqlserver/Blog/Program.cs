@@ -14,17 +14,14 @@ namespace Blog
 			connection.Open();
 
 			ReadUsers(connection);
-			//ReadUser();
-			//CreateUser();
-			//UpdateUser();
-			//DeleteUser();
+			ReadRoles(connection);
 
 			connection.Close();
 		}
 
 		public static void ReadUsers(SqlConnection connection)
 		{
-			var repository = new UserRepository(connection);
+			var repository = new Repository<User>(connection);
 			var users = repository.Get();
 
 			foreach (var user in users)
@@ -32,64 +29,14 @@ namespace Blog
 
 		}
 
-		private static void ReadUser()
+		public static void ReadRoles(SqlConnection connection)
 		{
-			using (var connection = new SqlConnection(CONNECTION_STRING))
-			{
-				var user = connection.Get<User>(1);
-				Console.WriteLine(user.Name);
-			}
-		}
+			var repository = new Repository<Role>(connection);
+			var roles = repository.Get();
 
-		public static void CreateUser()
-		{
-			var user = new User
-			{
-				Name = "John Doe",
-				Email = "john.doe@example.com",
-				PasswordHash = "hashed_password",
-				Bio = "Software developer and blogger.",
-				Image = "https://example.com/images/john_doe.jpg",
-				Slug = "john-doe"
-			};
+			foreach (var role in roles)
+				Console.WriteLine($"Id: {role.Id}, Name: {role.Name}, Slug: {role.Slug}");
 
-			using (var connection = new SqlConnection(CONNECTION_STRING))
-			{
-				connection.Insert<User>(user);
-				Console.WriteLine("Cadastro realizado com sucesso!");
-			}
-		}
-
-		public static void UpdateUser()
-		{
-			var user = new User
-			{
-				Id = 2,
-				Name = "John Doe 1",
-				Email = "john.doe@example.com",
-				PasswordHash = "hashed_password",
-				Bio = "Software developer and blogger.",
-				Image = "https://example.com/images/john_doe.jpg",
-				Slug = "john-doe-1"
-			};
-
-			using (var connection = new SqlConnection(CONNECTION_STRING))
-			{
-				connection.Update<User>(user);
-				Console.WriteLine("Atualização realizada com sucesso!");
-			}
-		}
-
-		public static void DeleteUser()
-		{
-
-
-			using (var connection = new SqlConnection(CONNECTION_STRING))
-			{
-				var user = connection.Get<User>(2);
-				connection.Delete<User>(user);
-				Console.WriteLine("Exclusão realizada com sucesso!");
-			}
 		}
 	}
 }
