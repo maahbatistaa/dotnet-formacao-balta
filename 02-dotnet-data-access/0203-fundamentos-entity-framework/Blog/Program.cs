@@ -1,6 +1,7 @@
 ﻿using Blog.Data;
 using Blog.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Blog
 {
@@ -8,55 +9,38 @@ namespace Blog
     {
         static void Main(string[] args)
         {
-            using (var context = new BlogDataContext())
+            using var context = new BlogDataContext();
+
+            var user = new User
             {
-                //var tag = new Tag { Name = ".NET", Slug = "dotnet" };
-                //context.Tags.Add(tag);
-                //context.SaveChanges();
+                Name = "Mariana Batista",
+                Slug = "marianabatista",
+                Email = "mariana@batista.com",
+                Bio = "Dev .NET",
+                Image = "https://balta.io",
+                PasswordHash = "123098457"
+            };
 
-                //var tag2 = new Tag { Name = "ASP.NET", Slug = "aspnet" };
-                //context.Tags.Add(tag2);
-                //context.SaveChanges();
+            var category = new Category
+            {
+                Name = "Backend",
+                Slug = "backend"
+            };
 
-                //var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
-                //tag.Name = ".NET";
-                //tag.Slug = "dotnet";
+            var post = new Post
+            {
+                Author = user,
+                Category = category,
+                Body = "<p>Hello world</p>",
+                Slug = "comecando-com-ef-core",
+                Summary = "Nesse artigo vamos aprender EF core",
+                Title = "Começando com EF Core",
+                CreateDate = DateTime.Now,
+                LastUpdateDate = DateTime.Now
+            };
 
-                //context.Update(tag);
-                //context.SaveChanges();
-
-                //var tag = context.Tags.FirstOrDefault(x => x.Id == 1);
-
-                //context.Remove(tag);
-                //context.SaveChanges();
-
-                //var tags = context
-                //    .Tags
-                //    .AsNoTracking()
-                //    .ToList();
-
-                //foreach (var tag in tags)
-                //{
-                //    Console.WriteLine(tag.Name);
-                //}
-
-                //var tag = context
-                //    .Tags
-                //    .FirstOrDefault(x => x.Id == 2);
-
-                //tag.Name = "Ponto NET";
-                //tag.Slug = "dotnet";
-
-                //context.Update(tag);
-                //context.SaveChanges();
-
-                var tag = context
-                    .Tags
-                    .AsNoTracking()
-                    .FirstOrDefault(x => x.Id == 3);
-
-                Console.WriteLine(tag?.Name);
-            }
+            context.Posts.Add(post);
+            context.SaveChanges();
         }
     }
 }
