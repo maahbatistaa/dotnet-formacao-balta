@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="Paymentcontext.Domain/Paymentcontext.Domain.csproj" />
+  <Project Path="Paymentcontext.Shared/Paymentcontext.Shared.csproj" />
+  <Project Path="Paymentcontext.Tests/Paymentcontext.Tests.csproj" />
+</Solution>
