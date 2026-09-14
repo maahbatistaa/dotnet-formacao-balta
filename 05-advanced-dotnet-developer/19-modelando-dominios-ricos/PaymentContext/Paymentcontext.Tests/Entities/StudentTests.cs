@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Paymentcontext.Domain.Entities;
+using Paymentcontext.Domain.ValueObjects;
 
 namespace Paymentcontext.Tests.Entities
 {
@@ -13,9 +14,7 @@ namespace Paymentcontext.Tests.Entities
         [TestMethod]
         public void AdicionarAssiantura()
         {
-            // var subscription = new Subscription(null);
-            // var student = new Student("Mariana", "Batista", "12345678912", "mariana@batista.com");
-            // student.AddSubscription(subscription);
+
         }
     }
 }
