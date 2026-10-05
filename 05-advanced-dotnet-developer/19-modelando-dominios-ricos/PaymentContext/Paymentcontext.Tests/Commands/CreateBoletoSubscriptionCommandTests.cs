@@ -17,7 +17,7 @@ namespace Paymentcontext.Tests.Commands
             command.FirstName = "";
 
             command.Validate();
-            Assert.AreEqual(false, command.Valid);
+            Assert.IsFalse(command.Valid);
         }
     }
 }
